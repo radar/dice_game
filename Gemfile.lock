@@ -1,0 +1,84 @@
+PATH
+  remote: .
+  specs:
+    dice_game (0.1.0)
+      rainbow
+      zeitwerk (~> 2.6)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    date (3.4.1)
+    diff-lcs (1.6.2)
+    erb (5.1.1)
+    io-console (0.8.1)
+    irb (1.15.2)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    pp (0.6.3)
+      prettyprint
+    prettyprint (0.2.0)
+    psych (5.2.6)
+      date
+      stringio
+    rainbow (3.1.1)
+    rake (13.3.0)
+    rdoc (6.15.0)
+      erb
+      psych (>= 4.0.0)
+      tsort
+    reline (0.6.2)
+      io-console (~> 0.5)
+    rspec (3.13.1)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.5)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.6)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.6)
+    stringio (3.1.7)
+    tsort (0.2.0)
+    zeitwerk (2.7.3)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  dice_game!
+  irb
+  rake (~> 13.0)
+  rspec (~> 3.0)
+
+CHECKSUMS
+  date (3.4.1) sha256=bf268e14ef7158009bfeaec40b5fa3c7271906e88b196d958a89d4b408abe64f
+  dice_game (0.1.0)
+  diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
+  erb (5.1.1) sha256=b2c26e7924551d9efbae998e17ddbef220937b6422b1d2ec7ae71417b5a1f4ec
+  io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
+  irb (1.15.2) sha256=222f32952e278da34b58ffe45e8634bf4afc2dc7aa9da23fed67e581aa50fdba
+  pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
+  prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
+  psych (5.2.6) sha256=814328aa5dcb6d604d32126a20bc1cbcf05521a5b49dbb1a8b30a07e580f316e
+  rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
+  rake (13.3.0) sha256=96f5092d786ff412c62fde76f793cc0541bd84d2eb579caa529aa8a059934493
+  rdoc (6.15.0) sha256=0f0e68864969e77c2acd4063a9585baa5216d362701d827a93feaa9cbae78b05
+  reline (0.6.2) sha256=1dad26a6008872d59c8e05244b119347c9f2ddaf4a53dce97856cd5f30a02846
+  rspec (3.13.1) sha256=b9f9a58fa915b8d94a1d6b3195fe6dd28c4c34836a6097015142c4a9ace72140
+  rspec-core (3.13.5) sha256=ab3f682897c6131c67f9a17cfee5022a597f283aebe654d329a565f9937a4fa3
+  rspec-expectations (3.13.5) sha256=33a4d3a1d95060aea4c94e9f237030a8f9eae5615e9bd85718fe3a09e4b58836
+  rspec-mocks (3.13.6) sha256=78b137ae5e91c5072bf81d40d78189aa911e965a81adc245e2d8d9ba624d9b4e
+  rspec-support (3.13.6) sha256=2e8de3702427eab064c9352fe74488cc12a1bfae887ad8b91cba480ec9f8afb2
+  stringio (3.1.7) sha256=5b78b7cb242a315fb4fca61a8255d62ec438f58da2b90be66048546ade4507fa
+  tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
+  zeitwerk (2.7.3) sha256=b2e86b4a9b57d26ba68a15230dcc7fe6f040f06831ce64417b0621ad96ba3e85
+
+BUNDLED WITH
+   2.7.1

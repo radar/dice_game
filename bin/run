@@ -1,0 +1,3 @@
+require "dice_game"
+
+DiceGame::Game.new.run
