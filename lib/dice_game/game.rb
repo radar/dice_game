@@ -3,7 +3,7 @@ require "rainbow"
 class DiceGame
   class Game
     BASE_SCORE = 50
-    ROUND_MULTIPLIER = 1.499
+    ROUND_MULTIPLIER = 1.52
     TARGET_SCORES = 1.upto(10).map { |round| (BASE_SCORE * (ROUND_MULTIPLIER*round)).to_i }
 
     attr_reader :dice, :score, :max_rolls_per_round, :rolls_this_round, :round
@@ -153,7 +153,11 @@ class DiceGame
             break
           when "2"
             new_sticker = add_upgrade(:add_sticker)
-            puts Rainbow("You added a #{new_sticker} to one of your dice!").green
+            if new_sticker.is_a?(DiceGame::Sticker::Addition)
+              puts Rainbow("You added a TWO +#{new_sticker.value} stickers to one of your dice!").green
+            else
+              puts Rainbow("You added a #{new_sticker} to one of your dice!").green
+            end
             break
           when "3"
             puts Rainbow("Continuing to next round...").green
