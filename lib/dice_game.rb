@@ -35,6 +35,8 @@ class DiceGame
     output << "Sixes (#{sixes}): +#{SIX_BONUS * sixes}" if sixes > 0
     output << "Straight bonus: +#{STRAIGHT_BONUS}" if straight?(rolls)
 
+    output << "Total with bonuses: #{calculate_bonuses(*rolls)}"
+
     addition_rolls(*rolls).each do |sticker|
       output << "Addition sticker #{sticker.inspect}: +#{sticker.value}"
     end
@@ -47,6 +49,18 @@ class DiceGame
   end
 
   def calculate(*rolls)
+    total = calculate_bonuses(*rolls)
+    total = calculate_stickers(total, *rolls)
+    total.ceil
+  end
+
+  def calculate_stickers(total, *rolls)
+    (addition_rolls(*rolls) + multiplier_rolls(*rolls)).reduce(total) do |acc, sticker|
+      sticker.apply(acc)
+    end
+  end
+
+  def calculate_bonuses(*rolls)
     total = numeric_rolls(*rolls).sum
     sixes = sixes(*rolls)
     fives = fives(*rolls)
@@ -60,11 +74,6 @@ class DiceGame
     total += STRAIGHT_BONUS if straight?(rolls)
     total += FIVE_BONUS * fives
     total += SIX_BONUS * sixes
-
-    total = (addition_rolls(*rolls) + multiplier_rolls(*rolls)).reduce(total) do |acc, sticker|
-      sticker.apply(acc)
-    end
-    total.ceil
   end
 
   def pairs(*rolls)
@@ -98,8 +107,9 @@ class DiceGame
   end
 
   def straight?(rolls)
-    # each_cons = [[1,2],[2,3],[3,4],[4,5]] = four elements
-    numeric_rolls(*rolls).sort.each_cons(2).count { |a, b| b == a + 1 } >= 4
+    numeric_rolls(*rolls).sort.each_cons(5).any? do |sequence|
+      sequence.each_cons(2).all? { |a, b| b == a + 1 }
+    end
   end
 
   def numeric_rolls(*rolls)

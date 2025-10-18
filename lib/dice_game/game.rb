@@ -3,9 +3,8 @@ require "rainbow"
 class DiceGame
   class Game
     BASE_SCORE = 50
-    ROUND_MULTIPLIER = 1.45
-    TARGET_SCORES = 1.upto(10).map { |round| (BASE_SCORE * (ROUND_MULTIPLIER**(round - 1))).to_i }
-
+    ROUND_MULTIPLIER = 1.99995
+    TARGET_SCORES = 1.upto(10).map { |round| (BASE_SCORE * (ROUND_MULTIPLIER*round)).to_i }
 
     attr_reader :dice, :score, :max_rolls_per_round, :rolls_this_round, :round
 
@@ -75,7 +74,6 @@ class DiceGame
 
     def report_status
       puts "Round #{round} / #{TARGET_SCORES.size}"
-      puts "Dice Pool: #{dice.map(&:to_s).join(', ')}"
       puts "Score: #{score}"
       puts "Goal: #{TARGET_SCORES[round - 1]}"
       puts "Rolls: #{rolls_this_round}/#{max_rolls_per_round}"
@@ -86,29 +84,38 @@ class DiceGame
       @over = true
     end
 
+    def dice_pool
+      Rainbow("Dice Pool: #{dice.map(&:to_s).join(', ')}").bg(:yellow).black
+    end
+
     def run
       puts "Welcome to Dice Game!"
       puts "Score at least the target score each round to advance."
       puts Rainbow("You start with a pool of 6 random dice.").bg(:yellow).black
+      puts dice_pool
 
 
       while round <= TARGET_SCORES.size
-        rolls_this_round = 0
-        while score < TARGET_SCORES[round - 1] && rolls_this_round < max_rolls_per_round
+        while score < TARGET_SCORES[round - 1] && rolls_this_round <= max_rolls_per_round
           puts "-------------------------"
           report_status
+          puts dice_pool
           puts "Press Enter to roll dice..."
           gets
 
           rolls = roll!
           puts Rainbow("You rolled: #{rolls.map(&:to_s).sort.join(", ")}").green
           output = DiceGame.new.calculation_output(*rolls)
+          roll_score = DiceGame.new.calculate(*rolls)
           output.each do |line|
             puts Rainbow(line).green
             sleep(0.5)
           end
+
+          puts Rainbow("Roll Score: #{roll_score}").green
+          sleep(0.5)
           puts Rainbow("New Score: #{score}!").green
-          sleep(2)
+          sleep(1)
         end
 
         if lost_round?
@@ -127,7 +134,7 @@ class DiceGame
           break
         end
 
-        puts "Dice Pool: #{dice.map(&:to_s).join(', ')}"
+        puts Rainbow("Dice Pool: #{dice.map(&:to_s).join(', ')}").bg(:yellow).black
 
         loop do
           puts "Would you like to add a random die, or a random sticker to a dice pool?"

@@ -67,6 +67,14 @@ RSpec.describe DiceGame do
     expect(game.calculate(1, 3, 4, 4, 5, sticker)).to eq(54)
   end
 
+  it "calculates a total score including two multiplier stickers" do
+    game = DiceGame.new
+    sticker = DiceGame::Sticker::Multiplier.new(value: 2)
+    sticker2 = DiceGame::Sticker::Multiplier.new(value: 3)
+    # (1 + 3 + 4 + 4 + 5) (17) + pair bonus (10) = 27 * 2 * 3 = 162
+    expect(game.calculate(1, 3, 4, 4, 5, sticker, sticker2)).to eq(162)
+  end
+
   it "calculates a total using an addition sticker and a multiplier sticker" do
     game = DiceGame.new
     multiplier_sticker = DiceGame::Sticker::Multiplier.new(value: 3)
@@ -87,6 +95,12 @@ RSpec.describe DiceGame do
     sticker = DiceGame::Sticker::Multiplier.new(value: 2)
     # (6 + 6 + 6 + 6 + 6 + 6 + 6) (42) + six bonus (100) = 142 * 2 = 284
     expect(game.calculate(6, 6, 6, 6, 6, 6, 6, sticker)).to eq(284)
+  end
+
+  it "calculates a 3, 4, 6, 7, 8, 9 as NOT a straight" do
+    game = DiceGame.new
+    # 3 + 4 + 6 + 7 + 8 + 9 = 37
+    expect(game.calculate(3, 4, 6, 7, 8, 9)).to eq(37)
   end
 
   context "#roll" do
