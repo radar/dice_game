@@ -3,7 +3,7 @@ require "rainbow"
 class DiceGame
   class Game
     BASE_SCORE = 50
-    ROUND_MULTIPLIER = 1.99995
+    ROUND_MULTIPLIER = 1.499
     TARGET_SCORES = 1.upto(10).map { |round| (BASE_SCORE * (ROUND_MULTIPLIER*round)).to_i }
 
     attr_reader :dice, :score, :max_rolls_per_round, :rolls_this_round, :round
@@ -104,7 +104,11 @@ class DiceGame
           gets
 
           rolls = roll!
-          puts Rainbow("You rolled: #{rolls.map(&:to_s).sort.join(", ")}").green
+          numeric_rolls = rolls.select { |r| r.is_a?(Numeric) }
+          non_numeric_rolls = rolls.reject { |r| r.is_a?(Numeric) }
+          roll_stats = "You rolled: #{numeric_rolls.sort.join(', ')}"
+          roll_stats += ", " + non_numeric_rolls.map(&:to_s).join(' ') unless non_numeric_rolls.empty?
+          puts Rainbow(roll_stats).green
           output = DiceGame.new.calculation_output(*rolls)
           roll_score = DiceGame.new.calculate(*rolls)
           output.each do |line|
@@ -138,8 +142,8 @@ class DiceGame
 
         loop do
           puts "Would you like to add a random die, or a random sticker to a dice pool?"
-          puts "1. Add a random die"
-          puts "2. Add a random sticker to an existing die"
+          puts "1. Add a random die (d4 -> d20)"
+          puts "2. Add EITHER a single multi sticker to a random die, or add TWO addition stickers"
           puts "3. No thanks, continue to next round"
           choice = gets.chomp
           case choice

@@ -6,7 +6,7 @@ class DiceGame
     end
 
     def self.random
-      build(faces: [4, 6, 8, 10].sample)
+      build(faces: [4, 6, 8].sample)
     end
 
     def self.build(faces: 6, stickers: [])
@@ -29,7 +29,11 @@ class DiceGame
     end
 
     def add_sticker(sticker)
-      @faces = @faces.to_a.sample(@faces.size - 1) + [sticker]
+      if sticker.is_a?(DiceGame::Sticker::Addition)
+        @faces = @faces.to_a.sample(@faces.size - 2) + [sticker] * 2
+      else
+        @faces = @faces.to_a.sample(@faces.size - 1) + [sticker]
+      end
     end
   end
 end
